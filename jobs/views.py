@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 
 from jobs.models import Job, job_types, cites
@@ -12,4 +13,13 @@ def get_job_list(request):
     for job in job_list:
         job.city_name = cites[job.job_city][1]
         job.type_name = job_types[job.job_type][1]
-    return render(request, 'jobs/job_list.html', context)
+    return render(request, 'jobs/joblist.html', context)
+
+
+def detail(request, job_id):
+    try:
+        job = Job.objects.get(pk=job_id)
+        job.city_name = cites[job.job_city][1]
+    except Job.DoesNotExist:
+        raise Http404("Job does not exist")
+    return render(request, 'jobs/job.html', {'job': job})
