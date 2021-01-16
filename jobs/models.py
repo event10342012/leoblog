@@ -1,10 +1,11 @@
 from datetime import datetime
 
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 # Create your models here.
 
+DEGREE_TYPE = ((u'本科', u'本科'), (u'硕士', u'硕士'), (u'博士', u'博士'))
 
 job_types = [
     (0, 'tech'),
@@ -12,7 +13,6 @@ job_types = [
     (2, 'operation'),
     (3, 'design')
 ]
-
 
 cites = [
     (0, 'Taipei'),
