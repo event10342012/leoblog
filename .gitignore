@@ -131,4 +131,4 @@ dmypy.json
 # Pycharm
 .idea
 
-leoblog/settings.py
+settings/local.py

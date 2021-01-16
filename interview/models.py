@@ -23,7 +23,7 @@ class Candidate(models.Model):
     apply_position = models.CharField(max_length=135, blank=True, verbose_name=u'應徵職位')
     born_address = models.CharField(max_length=135, blank=True, verbose_name=u'出生地')
     gender = models.CharField(max_length=135, blank=True, verbose_name=u'性別')
-    candidate_remark = models.CharField(max_length=135, blank=True, verbose_name=u'備註')
+    candidate_remark = models.CharField(max_length=135, blank=True, verbose_name=u'應徵者訊息備註')
 
     # 学校与学历信息
     bachelor_school = models.CharField(max_length=135, blank=True, verbose_name=u'大學學校')

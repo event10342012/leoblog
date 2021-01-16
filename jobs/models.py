@@ -5,7 +5,7 @@ from django.db import models
 
 # Create your models here.
 
-DEGREE_TYPE = ((u'本科', u'本科'), (u'硕士', u'硕士'), (u'博士', u'博士'))
+DEGREE_TYPE = ((u'大學', u'大學'), (u'碩士', u'碩士'), (u'博士', u'博士'))
 
 job_types = [
     (0, 'tech'),
