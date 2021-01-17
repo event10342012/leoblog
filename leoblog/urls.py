@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.utils.translation import gettext
 
 urlpatterns = [
+    path('jobs/', include('jobs.urls')),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
-    path('jobs/', include('jobs.urls'))
+    path('accounts/', include('registration.backends.simple.urls'))
 ]
+
+admin.site.site_header = gettext('Leo應徵者管理系統')

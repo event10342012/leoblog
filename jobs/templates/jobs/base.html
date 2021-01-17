@@ -3,6 +3,25 @@
 <h1 style="margin: auto; width: 50%;">Leo's Blog Recruitment</h1>
 
 <p></p>
+<hr>
+
+{% block header %}
+    <a href="/" style="text-decoration: none; color:#007bff">首頁</a>
+    <a href="/jobs" style="text-decoration: none; color:#007bff">職位列表</a>
+
+    {% if user.is_authenticated %}
+        <a href="/accounts/logout" style="text-decoration: none; color:#007bff">登出</a>
+    {% else %}
+        <a href="/accounts/login" style="text-decoration: none; color:#007bff">登入</a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <p>终于等到你 {{ user.username }},期待加入我们，用技术去探索一个新世界 </p>
+    {% else %}
+        <br>歡迎你，期待你加入我們。<br>
+    {% endif %}
+
+{% endblock %}
 
 {% block content %}
 
