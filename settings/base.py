@@ -39,6 +39,7 @@ SIMPLE_BACKEND_REDIRECT_URL = '/accounts/login/'
 
 INSTALLED_APPS = [
     'registration',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
