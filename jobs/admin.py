@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.contrib import admin
 from django.contrib import messages
+from django.utils.html import format_html
 
 from interview.models import Candidate
 from jobs.models import Job, Resume
@@ -32,8 +33,18 @@ class JobAdmin(admin.ModelAdmin):
 
 
 class ResumeAdmin(admin.ModelAdmin):
+
+    def image_tag(self, obj):
+        if obj.picture:
+            return format_html('<img src="{}" style="width:100px;height:80px;"/>'.format(obj.picture.url))
+        return ""
+
+    image_tag.allow_tags = True
+    image_tag.short_description = 'Image'
+
     list_display = (
-        'username', 'applicant', 'city', 'apply_position', 'bachelor_school', 'master_school', 'major', 'created_date')
+        'username', 'applicant', 'city', 'apply_position', 'bachelor_school', 'master_school',
+        'image_tag', 'major', 'created_date')
 
     readonly_fields = ('applicant', 'created_date', 'modified_date',)
 

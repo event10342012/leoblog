@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
@@ -7,7 +9,7 @@ from jobs.models import Job, job_types, cites, Resume
 
 
 # Create your views here.
-
+logging.getLogger(__name__)
 
 def get_job_list(request):
     job_list = Job.objects.order_by('job_type')
@@ -22,6 +24,7 @@ def detail(request, job_id):
     try:
         job = Job.objects.get(pk=job_id)
         job.city_name = cites[job.job_city][1]
+        logging.info('job info fetch from db')
     except Job.DoesNotExist:
         raise Http404("Job does not exist")
     return render(request, 'jobs/job.html', {'job': job})

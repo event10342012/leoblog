@@ -1,4 +1,5 @@
 import csv
+import logging
 from datetime import datetime
 
 from django.contrib import admin
@@ -9,6 +10,8 @@ from django.utils.safestring import mark_safe
 from interview import candidate_field as cf
 from interview.models import Candidate
 from jobs.models import Resume
+
+logging.getLogger(__name__)
 
 # Register your models here.
 
@@ -36,6 +39,7 @@ def export_model_as_csv(modeladmin, request, queryset):
             csv_line_values.append(field_value)
         writer.writerow(csv_line_values)
 
+    logging.error(f'export {len(queryset)} users')
     return response
 
 

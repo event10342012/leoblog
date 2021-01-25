@@ -14,14 +14,56 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.urls import path, include
 from django.utils.translation import gettext
+from django.conf.urls.static import static
+from django.conf import settings
+from rest_framework import serializers, viewsets, routers
+
+from jobs.models import Job
+
+
+# Serializers define the API representation.
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
+
+
+# ViewSets define the view behavior.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class JobSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Job
+        fields = '__all__'
+
+
+class JobViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'jobs', JobViewSet)
 
 urlpatterns = [
     path('jobs/', include('jobs.urls')),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
-    path('accounts/', include('registration.backends.simple.urls'))
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = gettext('Leo應徵者管理系統')
